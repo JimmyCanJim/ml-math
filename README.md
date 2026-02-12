@@ -15,7 +15,7 @@ This is checking for __Linear Independence__. If the span doesn't increase when 
 
 __Multicollinearly__ is a statistical phenomenon in multiple regression analysis where two or more independent variables are highly linearly correlated, meaning one can be predicted from the others. 
 
-    Formula: v1 = c*v2 (c is a constant scaler)
+    Formula: v(1) = c*v(2) (c is a constant scaler)
 
 
 ## Module 3: The Dense Layer
@@ -24,5 +24,42 @@ Implementing the forward pass where the input data is transformed by the model's
 This is the __Linear Transformation__. A neural network layer is simply a matrix that wraps and stretches the input space to find patterns.
 
     Formula: y = Wx
-        $\begin{bmatrix} y_1 \\ y_2 \end{bmatrix} = x_1 \begin{bmatrix} w_{11} \\ w_{21} \end{bmatrix} + x_2 \begin{bmatrix} w_{12} \\ w_{22} \end{bmatrix}$
+
+
+## Module 4: Deep Learning
+Combining two layers into one single operation
+
+This is __Matrix Composition__. Applying layer 1 and then layer 2 is the same as applying their product. This is why we can stack dozens of layers in deep learning to perform complex data warping.
+
+    Formula: W(total) = W(2) * W(1)
+
+
+## Module 5: Information Stability
+Creating a safety check to ensure the model isn't deleting data.
+
+The __Determinant__ measure the factor by which area or volume is scaled. 
+- Determinant > 1 : Space is expanding. (Information is being added)
+- 0 < Determinant < 1 : Space is contracting. (Information is being lost)
+- Determinant = 0 : Space has collapsed into a lower dimension. (All information is lost)
+- Determinant < 0 : Space has been flipped.
+
+
+## Module 6: Ideal State Solver
+Given a target result, find the exact input required to produce it. 
+
+This uses the __Inverse Matrix__ to play the transformation in reverse. We usually use Gradient Descent, but calculating the inverse is the foundation for solving __Linear Systems__ and finding perfect weights in models like __Linear Reression__.
+
+    Formula: x = W**-1y
+
+
+## Module 7: Dimension Compression
+Projecting high-dimensional data (3 features) into a lower-dimensional hidden layer (2 features).
+
+This is a __Non-Square Matrix__. It is use in __Dimensionality Reduction__ to find the most important parts of a complex dataset.
+
+    Formula: A(m*n)
+    n is the input dimension
+    m is the output dimension
+
+
 
