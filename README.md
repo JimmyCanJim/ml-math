@@ -1,65 +1,125 @@
-# ml-math
+# Linear Algebra for Machine Learning
 
-## Module 1: The Input Tensor
-Creating a function that takes in a raw data vector and scales it sothat the model can process it efficiently.
+## Segment 1: Data Structures for Algebra
+### Libraries used:
 
-This is called __Normalization__. Normalization (or feauture scaling) is a preprocessing technique that rescales numerical input features to a standard range (typically 0 to 1 or -1 to 1) or distribution. We do this to ensure the models math won't be overwhelmed by the wildly different scales of the features. It keeps the importance of each feature balanced.
+#### numpy:
+Numpy is used for scientific computing in Python. This library provides multidimensional array objects, various derived objects (such as masked arrays and matrices), and an assortment of routines for fast operation on arrays, including mathematical, logical, shape manipulation, sorting, selecting, I/O, discrete Fourier transforms, basic linear algebra, basic statistical operations, random simulation and much more.
 
-    Formula: V(norm) = v*(1/max(|v|))
+```np.linspace(start, end, n-points)```: This function is used to create a one-dimensional array of evenly spaced numbers over a specified interval.
 
+#### matplotlib:
+This library is used to create static, animated, and interactive visualizations. We are using this to draw graphs in machine learning.
 
-## Module 2: Featue Redudancy:
-Writing a script that checks what data is redundant.
+```figure, axes = plt.sublots()```: Subplots are individual plots arranged in a grid within a single overall canvas.
+- Figure: Canvas that contains the plots.
+- Axes: Plot area, where the x and y axes are, with titles and labels. 
 
-This is checking for __Linear Independence__. If the span doesn't increase when a new feature is added, the feature is redundant. In ML,this is called Multicollinearity, and it makes the model weights highly unstable. 
+#### torch:
+PyTorch tensors are what we use to train and deploy machine learning models. They are designed to be pythonic, meaning they feel and behave like NumPy arrays. The advantage to PyTorch tensors is that they can be easily used for operations on GPU's. This means we can have matrix operations running in parallel.
 
-__Multicollinearly__ is a statistical phenomenon in multiple regression analysis where two or more independent variables are highly linearly correlated, meaning one can be predicted from the others. 
+```variable = torch.tensor(25, dtype = torch.float16)```: This is used to specify the data-type of the tensor data.
 
-    Formula: v(1) = c*v(2) (c is a constant scaler)
+#### tensorflow:
+With TensorFlow the tensors are created with wrappers.
+- ```tf.Variable```
+- ```tf.constant```
+- ```tf.placeholder```
+- ```tf.SparseTensor```
 
+### Tensors:
+Tensors are specific to machine learning. They are a generalization of vectors and matrices with any number of dimensions.
+#### Some Tensor Examples:
+- __Scalar__ : x (no dimensions)
+- __Vector__ : [x x x] (1 dimensional - linear representation of a collection of scalars)
+- __Matrix__ : (2 dimensional)
 
-## Module 3: The Dense Layer
-Implementing the forward pass where the input data is transformed by the model's weights.
+![Alt text for the image](https://helpingwithmath.com/wp-content/uploads/2021/10/Matrix-Notation.jpg)
 
-This is the __Linear Transformation__. A neural network layer is simply a matrix that wraps and stretches the input space to find patterns.
+- __3-Tensor__ : (3 dimensional)
 
-    Formula: y = Wx
-
-
-## Module 4: Deep Learning
-Combining two layers into one single operation
-
-This is __Matrix Composition__. Applying layer 1 and then layer 2 is the same as applying their product. This is why we can stack dozens of layers in deep learning to perform complex data warping.
-
-    Formula: W(total) = W(2) * W(1)
-
-
-## Module 5: Information Stability
-Creating a safety check to ensure the model isn't deleting data.
-
-The __Determinant__ measure the factor by which area or volume is scaled. 
-- Determinant > 1 : Space is expanding. (Information is being added)
-- 0 < Determinant < 1 : Space is contracting. (Information is being lost)
-- Determinant = 0 : Space has collapsed into a lower dimension. (All information is lost)
-- Determinant < 0 : Space has been flipped.
-
-
-## Module 6: Ideal State Solver
-Given a target result, find the exact input required to produce it. 
-
-This uses the __Inverse Matrix__ to play the transformation in reverse. We usually use Gradient Descent, but calculating the inverse is the foundation for solving __Linear Systems__ and finding perfect weights in models like __Linear Reression__.
-
-    Formula: x = W**-1y
+| Dimensions | Mathematical Name | Description |
+|---|---|---|
+| 0 | scalar | magnitude only |
+| 1 | vector | array |
+| 2 | matrix | flat table |
+| 3 | 3-tensor | 3D table |
+| n | n-tensor | higher dimensional |
 
 
-## Module 7: Dimension Compression
-Projecting high-dimensional data (3 features) into a lower-dimensional hidden layer (2 features).
+### Scalars:
+- No Dimensions
+- Singular Number
+- Has a data-type (int, float)
 
-This is a __Non-Square Matrix__. It is use in __Dimensionality Reduction__ to find the most important parts of a complex dataset.
+### Vectors:
+- One-dimensional array of numbers
+- Arranged in order, so each element can be accessed by its index
+- Vectors represent a point in space.
 
-    Formula: A(m*n)
-    n is the input dimension
-    m is the output dimension
+![Alt text for the image](https://mathtec.weebly.com/uploads/2/9/0/5/29050183/vector9_orig.jpg)
+
+### Vector Transposition:
+Vector transposition is when you convert a vectors rows into its columns or visa versa. So why do we do vector transposition?
+We use machine learning is used to change a vector's orientation between row and column shapes to do matrix multiplication. We do this beacuse matrix multiplication has strict dimensional requirements. 
+
+__Matrix Multiplication:__
+- Dot products
+- Linear transformations
+- Gradient Descent & Loss functions
+
+![Alt text for the image](https://peerherholz.github.io/Cog_Com_Neuro_ML_DL/_images/transpose.png)
+
+### Zero Vectors
+Vectors with magnitude of 0 and no specific direction. These will have no effect when added to another vector.
+
+### Norms
+First we need to understand that vectors represent a magnitude and direction from the origin. Norms are functions that quantify vector magnitude. 
+
+__L2 Norm:__
+The most common and most important norm function is the L2 norm function.
+
+![Alt text for the image](https://builtin.com/sites/www.builtin.com/files/styles/ckeditor_optimize/public/inline-images/vector-norms-12.png)
+
+Measures the straight-line/simple distance from the origin to a point in Euclidean space.
+
+__L1 Norm:__
+This is also a pretty common norm in machine learning.
+
+![Alt text for the image](https://builtin.com/sites/www.builtin.com/files/styles/ckeditor_optimize/public/inline-images/vector-norms-9.png)
+
+__Squared L2 Norm:__
+This is like L2 norm, but you dont have to use the square root. This makes the squared L2 norm function computationally cheaper to use than the L2 norm, because:
+- Squared L2 norm equals transpose of x times x
+- The derivative of element x requires that element alone. Whereas L2 norm requires the entire vector.
+The downside of squared L2 norm is that it grows slowly near the origin, so it cant be used if you need to distinguish between zero and near-zero.
+
+__Max Norm:__
+This occurs reasonably frequently in machine learning. 
+
+![Alt text for the image](https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTdIPzbKT6iyumXzzCcm1frqFFa6S7AL7T8iA&s)
+
+Returns the absolute value of the largest-magnitude element in the vector.
+
+All of the norms above are specific cases or variations of the 
+__Generalized Lp Norm:__
+
+![Alt text for the image](https://miro.medium.com/v2/resize:fit:732/1*CUeKs_0Sfq4xVcn_jfDMsw.png)
+
+- p must be:
+    - A real number
+    - Greater than or equal to 1
+- Can derive L1, L2 and Lx norm formulae by substituting p.
+- Norms, particularly L1 and L2, used to requlize objective functions.
+
+__These normalization methods have different use cases:__
+- L1 norm: This sums the absolute differences of each value within a given vector. Promoting sparsity and robustness to outliers. This makes it ideal for feature selection. In other words, it is used whenever the difference between zero and non-zero is key.
+- L2 norm: This is the square root of the sums of squares for each value within a given vector. This scales down the outliers of the vector.  
+
+### Unit Vectors:
+This is a special case of vectors where its length is equal to 1. Technically ||x|| = 1
+
+![Alt text for the image](https://media.geeksforgeeks.org/wp-content/uploads/20220308175724/vectoranditsunitvectordiagram-660x351.jpg)
 
 
-
+### Basis Vectors:
