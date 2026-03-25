@@ -121,5 +121,7 @@ This is a special case of vectors where its length is equal to 1. Technically ||
 
 ![Alt text for the image](https://media.geeksforgeeks.org/wp-content/uploads/20220308175724/vectoranditsunitvectordiagram-660x351.jpg)
 
-
-### Basis Vectors:
+## Author:
+Junior Developer: Jared Van Eeden
+- LinkedIn: https://www.linkedin.com/in/jared-van-eeden-483499258/
+- Personal Portfolio: https://personal-portfolio-bf19d.web.app/index.html
